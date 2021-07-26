@@ -3,8 +3,12 @@
 Basic node rest api with express base on class
 
 ## Content
-1. Crud of users
+1. Rest Api
 2. Jwt authentication
+3. Mongo DB (Mongo Atlas, Mongo Compass, Mongoose)
+4. Work with files
+5. Socket io
+6. Heroku deployment
 
 ### Important heroku commands 
 1. `heroku config` to see heroku configuration
