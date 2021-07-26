@@ -60,15 +60,12 @@ const updateUser = async (req, res = response) => {
 const deleteUser = async (req, res = response) => {
   const id = req.params.id;
 
-  // Real remove
-  // const user = await UserModel.findByIdAndDelete(id);
-
   // Logical remove
   const user = await UserModel.findByIdAndUpdate(id, {status: false});
 
   res.json({
     message: 'User deleted',
-    user
+    user,
   });
 };
 

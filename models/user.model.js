@@ -35,7 +35,9 @@ const UserSchema = Schema({
 // Exclude version and password of user object for response to front app
 // Need to be a function in order to use this inside
 UserSchema.methods.toJSON = function() {
-  const {__v, password, ...user} = this.toObject();
+  const {__v, password, _id,...user} = this.toObject();
+  user.uid = _id;
+
   return user;
 }
 
