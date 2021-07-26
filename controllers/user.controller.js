@@ -15,7 +15,7 @@ const getUser = async (req = request, res = response) => {
   // This is for execute both promises at the same time and reduce response time
   // If one of them fails all will fail
   const [total, users] = await Promise.all([
-    UserModel.count(query),
+    UserModel.countDocuments(query),
     UserModel.find(query).skip(Number(from)).limit(Number(limit))
   ]);
 
