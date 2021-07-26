@@ -4,11 +4,24 @@ const bcrypt = require('bcryptjs');
 const UserModel = require('../models/user.model');
 
 
-const getUser = (req = request, res = response) => {
-  const params = req.query
+const getUser = async (req = request, res = response) => {
+  const {limit = 5, from = 0} = req.query;
+  const query = {status: true};
+
+  // Old way, comments only for study purpose
+ /*  const users = await UserModel.find(query).skip(Number(from)).limit(Number(limit));
+  const total = await UserModel.countDocuments(query); */
+
+  // This is for execute both promises at the same time and reduce response time
+  // If one of them fails all will fail
+  const [total, users] = await Promise.all([
+    UserModel.countDocuments(query),
+    UserModel.find(query).skip(Number(from)).limit(Number(limit))
+  ]);
+
   res.json({
-    message: 'Get method controller',
-    params
+    total,
+    users
   });
 };
 
@@ -48,11 +61,18 @@ const updateUser = async (req, res = response) => {
   });
 };
 
-const deleteUser = (req, res = response) => {
+const deleteUser = async (req, res = response) => {
   const id = req.params.id;
+
+  // Real remove
+  // const user = await UserModel.findByIdAndDelete(id);
+
+  // Logical remove
+  const user = await UserModel.findByIdAndUpdate(id, {status: false});
+
   res.json({
-    message: 'Delete method controller',
-    id
+    message: 'User deleted',
+    user
   });
 };
 
