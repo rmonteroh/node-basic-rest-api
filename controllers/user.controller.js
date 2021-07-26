@@ -8,10 +8,6 @@ const getUser = async (req = request, res = response) => {
   const {limit = 5, from = 0} = req.query;
   const query = {status: true};
 
-  // Old way, comments only for study purpose
- /*  const users = await UserModel.find(query).skip(Number(from)).limit(Number(limit));
-  const total = await UserModel.countDocuments(query); */
-
   // This is for execute both promises at the same time and reduce response time
   // If one of them fails all will fail
   const [total, users] = await Promise.all([
