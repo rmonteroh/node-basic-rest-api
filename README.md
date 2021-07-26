@@ -1,6 +1,10 @@
 # Node rest server
 
-Basic node rest server with express
+Basic node rest api with express base on class
+
+## Content
+1. Crud of users
+2. Jwt authentication
 
 ### Important heroku commands 
 1. `heroku config` to see heroku configuration
